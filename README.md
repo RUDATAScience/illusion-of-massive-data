@@ -1,56 +1,57 @@
+
 # Informational Health Simulator: Social Desirability Bias & The Illusion of Massive Data
 
-[![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+This repository contains simulation code that mathematically proves how "Social Desirability Bias" (or *sontaku* / social conformity) in surveys and large-scale research structurally and non-linearly eradicates the warning signals of minorities.
 
-本リポジトリは、アンケートや大規模調査における「社会的望ましさバイアス（Social Desirability Bias / 忖度）」が、いかにしてマイノリティの警告シグナルを構造的かつ非線形に抹殺するかを数理的に証明するシミュレーション・コードです。
+In modern data science—which has become over-adapted to the "Law of Large Numbers"—this project provides computational evidence to visualize the "Informational Ill-health" lurking within the data generation process itself, advocating for a new paradigm of "Informational Health Checkups."
 
-「大数の法則」に過剰適応した現代のデータサイエンスにおいて、データ生成プロセスそのものに潜む「情報の不健康状態（Informational Ill-health）」を可視化し、「情報の健康診断」という新たなパラダイムを提唱するための計算論的根拠を提供します。
+## 📌 Background
 
-## 📌 背景と問題意識 (Background)
+In the era of big data, a naive belief has become pervasive: "If the sample size is large enough, errors will disappear." However, when the gravity of "social pressure" (conformity) acts upon the respondents' decision-making processes, massive datasets no longer reflect the truth. Instead, they function as a laundering mechanism that turns a "distorted consensus" into mathematical truth.
 
-ビッグデータ時代において、「サンプルサイズが大きければ誤差は消える」という素朴な信仰が蔓延しています。しかし、回答者の意思決定プロセスに「社会的圧力（忖度）」という重力が作用している場合、巨大なデータは真実を映し出すのではなく、むしろ「歪んだ合意」を数学的な真理へとロンダリングする装置として機能します。
+The simulations in this project quantitatively prove the following facts:
 
-本プロジェクトのシミュレーションは、以下の事実を定量的に証明します。
+1. **Phase Transition (The Signal Cliff)**: The moment bias exceeds a certain critical point, the "small voices" of the minority do not decrease gradually; they evaporate non-linearly.
+2. **Epistemic Injustice (The Deception of Statistical Significance)**: Behind the linear improvement of the mean value, structural information distortion (KL Divergence) explodes non-linearly.
+3. **Illusion of Stability (The Paradox of the Law of Large Numbers)**: Maximizing the sample size ($N=10^9$) does not guarantee reaching the truth; rather, it reinforces absolute confidence in a "false stability" contaminated by conformity.
 
-1. **シグナルの崖（Phase Transition）**: バイアスが一定の臨界点を超えた瞬間、マイノリティの「小さな声」はなだらかに減少するのではなく、非線形に「蒸発」する。
-2. **統計的有意性の欺瞞（Epistemic Injustice）**: 平均値の線形な改善の裏で、情報の構造的な歪み（KLダイバージェンス）が非線形に爆発する。
-3. **大数の法則のパラドックス（Illusion of Stability）**: サンプルサイズ（$N=10^9$）の極大化は、真実への到達を保証するのではなく、忖度に汚染された「偽の安定」への確信を強める。
+## 🧮 Mathematical Model
 
-## 🧮 数理モデル (Mathematical Model)
-
-個人の最終的な効用 $U$ を、内発的な「本音の効用」と外発的な「忖度の効用」の線形結合として定義し、Softmax関数を通じて選択確率を算出します。
+An individual's final utility $U$ is defined as a linear combination of their intrinsic "true utility" and their extrinsic "social desirability utility." The choice probability is calculated via the Softmax function.
 
 $$U_{total} = (1 - v_2)U_{true} + v_2U_{target}$$
 
-* $v_2$: 社会的望ましさ（忖度）の重み。0で完全な本音、1で完全な社会的同調。
-* $\beta$: 逆温度係数（確信度）。Softmax関数の鋭敏さを制御。
+* $v_2$: The weight of social desirability (conformity). 0 represents complete honesty, and 1 represents complete social conformity.
+* $\beta$: Inverse temperature coefficient (certainty). Controls the sensitivity/sharpness of the Softmax function.
 
-## 📊 出力される分析結果 (Outputs)
+## 📊 Outputs
 
-スクリプトを実行すると、`comprehensive_simulation_results` ディレクトリが作成され、以下の6つの高解像度グラフ（PNG）と対応する生データ（CSV）が生成されます。
+Executing the script creates a `comprehensive_simulation_results` directory containing the following 6 high-resolution graphs (PNGs) and their corresponding raw data (CSVs):
 
-* **Fig 1: Survival Curve** - バイアス増大に伴う警告シグナル（評価1）の急激な墜落（崖）。
-* **Fig 2: Structural Alteration** - 5つのバイアス・シナリオにおける分布の全体主義的収束プロセス。
-* **Fig 3: Mean vs KL Divergence** - 表面的な平均値の改善と、裏側で進行する情報の歪み（KL距離）の対比。
-* **Fig 4: Power Cliff** - 異常検知の統計的検出力（Power）が臨界点で機能不全に陥る証明。
-* **Fig 5: Convergence to False Stability** - $N=10^3$ から $10^9$ への拡大がもたらす「偽の安定」のバイオリンプロット。
-* **Fig 6: The Violence of Absolute Numbers** - $N=10^9$ において、わずか5%の割合の中に不可視化される5,000万人規模の「SOS」の絶対数可視化。
+* **Fig 1: Survival Curve** - The steep crash (cliff) of warning signals (Rating 1) as bias increases.
+* **Fig 2: Structural Alteration** - The totalitarian convergence process of distributions across 5 bias scenarios.
+* **Fig 3: Mean vs KL Divergence** - The contrast between superficial mean improvements and the underlying progression of information distortion (KL distance).
+* **Fig 4: Power Cliff** - Proof that statistical power for anomaly detection breaks down at the critical point.
+* **Fig 5: Convergence to False Stability** - Violin plots illustrating the "false stability" brought about by expanding the sample size from $N=10^3$ to $N=10^9$.
+* **Fig 6: The Violence of Absolute Numbers** - Visualizing the sheer magnitude of "SOS" signals (on a scale of 50 million people) rendered completely invisible inside a mere 5% proportion when $N=10^9$.
 
-## 🚀 実行方法 (Usage)
+## 🚀 Usage
 
-本コードは **Google Colaboratory** での実行に最適化されています。
+This code is optimized to run on **Google Colaboratory**.
 
-1. `informational_health_sim.py`（またはJupyter Notebook形式）を Google Colab にアップロードします。
-2. 全てのセルを実行します。
-3. 実行完了後、グラフとCSVが格納された `comprehensive_simulation_archive.zip` がブラウザ経由で自動的にダウンロードされます。
+1. Upload `informational_health_sim.py` (or the Jupyter Notebook format) to Google Colab.
+2. Run all cells.
+3. Upon completion, a `comprehensive_simulation_archive.zip` file containing the graphs and CSVs will automatically download via your browser.
 
-### ローカル環境での実行に関する注意
-ローカルのPython環境で実行する場合は、スクリプト先頭の `from google.colab import files` および、スクリプト末尾の `files.download()` の行をコメントアウトして実行してください。ZIPファイルはカレントディレクトリに生成されます。
+### Note on Local Execution
+
+When running in a local Python environment, please comment out the `from google.colab import files` line at the beginning of the script and the `files.download()` line at the end. The ZIP file will be generated in your current directory.
 
 ```bash
-# 依存ライブラリのインストール
+# Install dependencies
 pip install -r requirements.txt
 
-# スクリプトの実行
+# Run the script
 python informational_health_sim.py
+
+```
